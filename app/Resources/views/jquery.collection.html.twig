@@ -1,0 +1,94 @@
+{#
+# jquery.collection.html.twig
+#
+# Adds the following html attributes to the root node of your collection fields:
+#
+# - data-prototype-name: placeholder used in the prototype to replace element indexes on the collection
+# - data-allow-add: if set to false, plugin will automatically set allow_add option to false
+# - data-allow-delete: if set to false, plugin will automatically set allow_remove option to false
+# - data-name-prefix: contains the collection's prefix used in descendant field names
+#
+# Those information let you configure the plugin options automatically.
+#
+# If you are already using a form theme, you can use both by using:
+# {%
+#   form_theme myForm
+#       'FuzAppBundle::my-form-theme.html.twig'
+#       'FuzAppBundle::jquery.collection.html.twig'
+#       ...
+# %}
+#}
+
+{% block collection_widget %}
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': form_row(prototype)}) %}
+            {% set attr = attr|merge({'data-prototype-name': prototype.vars.name}) %}
+        {% endif %}
+        {% set attr = attr|merge({'data-allow-add': allow_add ? 1 : 0}) %}
+        {% set attr = attr|merge({'data-allow-remove': allow_delete ? 1 : 0 }) %}
+        {% set attr = attr|merge({'data-name-prefix': full_name}) %}
+        {{ block('form_widget') }}
+    {% endspaceless %}
+{% endblock collection_widget %}
+
+
+{% block question_label %}
+{% endblock %}
+
+{% block question_widget %}
+    <div class="well question">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-7">
+                        {{ form_widget(form.title, {'attr': {'placeholder': 'Question'}}) }}
+                    </div>
+                    <div class="col-md-5">
+                        <button class="questions-collection-add btn btn-default" title="Add element">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </button>
+                        <button class="questions-collection-remove btn btn-default" title="Delete element">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <button class="questions-collection-up btn btn-default" title="Move up">
+                            <span class="glyphicon glyphicon-arrow-up"></span>
+                        </button>
+                        <button class="questions-collection-down btn btn-default" title="Move down">
+                            <span class="glyphicon glyphicon-arrow-down"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.answer) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block answer_label %}
+{% endblock %}
+
+{% block answer_widget %}
+    <div class="row answer">
+        <div class="col-md-7">
+            {{ form_widget(form.title, {'attr': {'placeholder': 'Answer'}}) }}
+            {{ form_widget(form.correct, {'attr': {'class': 'select-correct'}})  }}
+        </div>
+        <div class="col-md-5">
+            <button class="answers-collection-add btn btn-default" title="Add element">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </button>
+            <button class="answers-collection-remove btn btn-default" title="Delete element">
+                <span class="glyphicon glyphicon-trash"></span>
+            </button>
+            <button class="answers-collection-up btn btn-default" title="Move up">
+                <span class="glyphicon glyphicon-arrow-up"></span>
+            </button>
+            <button class="answers-collection-down btn btn-default" title="Move down">
+                <span class="glyphicon glyphicon-arrow-down"></span>
+            </button>
+        </div>
+    </div>
+{% endblock %}

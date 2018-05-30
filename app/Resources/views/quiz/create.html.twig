@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'jquery.collection.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.questions) }}
+
+    {% block action %}{% endblock %}
+    {{ form_end(form) }}
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/jquery.collection.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/quiz.js') }}"></script>
+{% endblock %}

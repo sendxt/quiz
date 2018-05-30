@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Quiz</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ quiz.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ quiz.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('quiz_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
