@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Type;
 
-use AppBundle\Entity\Answer;
+use AppBundle\Entity\Answers;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,14 +15,19 @@ class AnswerType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('correct', CheckboxType::class)
+            ->add('correct',
+                CheckboxType::class,
+                [
+                    'required' => false,
+                ]
+            )
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => Answer::class,
+            'data_class' => Answers::class,
         ));
     }
 }

@@ -4,8 +4,14 @@
 
 {% block body %}
     {{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.questions) }}
+
+    <div class="col-sm-6" style="margin-bottom:10px;">
+        {{ form_row(form.title) }}
+    </div>
+
+    {%  block collection_widget %}
+        {{ form_row(form.questions) }}
+    {% endblock %}
 
     {{ form_end(form) }}
 {% endblock %}

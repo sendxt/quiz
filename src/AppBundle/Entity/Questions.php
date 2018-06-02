@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Quiz;
 
 /**
  * Questions
@@ -30,18 +30,23 @@ class Questions
     private $title;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="numberCorrectAnswers", type="integer")
-     */
-    private $numberCorrectAnswers;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Quiz", inversedBy="questions")
+     * @ORM\ManyToOne(targetEntity="Quiz")
      * @ORM\JoinColumn(name="quiz_id", referencedColumnName="id")
      */
     private $quiz;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Answers", mappedBy="question", cascade={"all"})
+     */
+    private $answers;
+
+    /**
+     * Questions constructor.
+     */
+    public function __construct()
+    {
+        $this->answers = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -51,6 +56,26 @@ class Questions
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQuiz()
+    {
+        return $this->quiz;
+    }
+
+    /**
+     * @param mixed $quiz
+     *
+     * @return Questions
+     */
+    public function setQuiz($quiz)
+    {
+        $this->quiz = $quiz;
+
+        return $this;
     }
 
     /**
@@ -78,50 +103,37 @@ class Questions
     }
 
     /**
-     * Set numberCorrectAnswers.
-     *
-     * @param int $numberCorrectAnswers
+     * @return mixed
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+
+    /**
+     * @param Answers $answer
      *
      * @return Questions
      */
-    public function setNumberCorrectAnswers($numberCorrectAnswers)
+    public function addAnswer(Answers $answer): Questions
     {
-        $this->numberCorrectAnswers = $numberCorrectAnswers;
+        if (false === $this->answers->contains($answer)) {
+            $this->answers->add($answer);
+            $answer->setQuestion($this);
+        }
 
         return $this;
     }
 
     /**
-     * Get numberCorrectAnswers.
-     *
-     * @return int
-     */
-    public function getNumberCorrectAnswers()
-    {
-        return $this->numberCorrectAnswers;
-    }
-
-    /**
-     * Set quiz.
-     *
-     * @param \AppBundle\Entity\Quiz|null $quiz
+     * @param Answers $answer
      *
      * @return Questions
      */
-    public function setQuiz(\AppBundle\Entity\Quiz $quiz = null)
+    public function removeAnswer(Answers $answer): Questions
     {
-        $this->quiz = $quiz;
+        $this->answers->removeElement($answer);
 
         return $this;
-    }
-
-    /**
-     * Get quiz.
-     *
-     * @return \AppBundle\Entity\Quiz|null
-     */
-    public function getQuiz()
-    {
-        return $this->quiz;
     }
 }

@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Answer
  *
  * @ORM\Table(name="answer")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AnswerRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AnswersRepository")
  */
-class Answer
+class Answers
 {
     /**
      * @var int
@@ -35,12 +35,11 @@ class Answer
      */
     private $correct;
 
+
     /**
-     *
-     * @ORM\ManyToOne(targetEntity="Questions")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="question_id", referencedColumnName="id")
-     * })
+     * Many Features have One Product.
+     * @ORM\ManyToOne(targetEntity="Questions", inversedBy="answers")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      */
     private $question;
 
@@ -60,7 +59,7 @@ class Answer
      *
      * @param string $title
      *
-     * @return Answer
+     * @return Answers
      */
     public function setTitle($title)
     {
@@ -84,7 +83,7 @@ class Answer
      *
      * @param bool $correct
      *
-     * @return Answer
+     * @return Answers
      */
     public function setCorrect($correct)
     {
@@ -108,7 +107,7 @@ class Answer
      *
      * @param \AppBundle\Entity\Questions|null $question
      *
-     * @return Answer
+     * @return Answers
      */
     public function setQuestion(\AppBundle\Entity\Questions $question = null)
     {

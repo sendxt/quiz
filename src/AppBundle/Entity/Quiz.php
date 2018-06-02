@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use AppBundle\Entity\Questions;
 
 /**
  * Quiz
@@ -31,10 +30,13 @@ class Quiz
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="Questions", mappedBy="quiz", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Questions", mappedBy="quiz", cascade={"all"})
      */
     private $questions;
 
+    /**
+     * Quiz constructor.
+     */
     public function __construct() {
         $this->questions = new ArrayCollection();
     }
@@ -80,23 +82,26 @@ class Quiz
      *
      * @return Quiz
      */
-    public function addQuestion(\AppBundle\Entity\Questions $question)
+    public function addQuestion(Questions $question): Quiz
     {
-        $this->questions[] = $question;
+        if (false === $this->questions->contains($question)) {
+            $this->questions->add($question);
+            $question->setQuiz($this);
+        }
 
         return $this;
     }
 
     /**
-     * Remove question.
+     * @param Questions $question
      *
-     * @param \AppBundle\Entity\Questions $question
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return $this
      */
-    public function removeQuestion(\AppBundle\Entity\Questions $question)
+    public function removeQuestion(Questions $question)
     {
-        return $this->questions->removeElement($question);
+        $this->questions->removeElement($question);
+
+        return $this;
     }
 
     /**

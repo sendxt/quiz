@@ -42,26 +42,26 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-7">
-                        {{ form_widget(form.title, {'attr': {'placeholder': 'Question'}}) }}
+                        {{ form_widget(form.title) }}
                     </div>
                     <div class="col-md-5">
                         <button class="questions-collection-add btn btn-default" title="Add element">
-                            <span class="glyphicon glyphicon-plus-sign"></span>
+                            <span class="glyphicon glyphicon-plus-sign">Add element</span>
                         </button>
                         <button class="questions-collection-remove btn btn-default" title="Delete element">
-                            <span class="glyphicon glyphicon-trash"></span>
+                            <span class="glyphicon glyphicon-trash">Delete element</span>
                         </button>
                         <button class="questions-collection-up btn btn-default" title="Move up">
-                            <span class="glyphicon glyphicon-arrow-up"></span>
+                            <span class="glyphicon glyphicon-arrow-up">Move up</span>
                         </button>
                         <button class="questions-collection-down btn btn-default" title="Move down">
-                            <span class="glyphicon glyphicon-arrow-down"></span>
+                            <span class="glyphicon glyphicon-arrow-down">Move down</span>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                {{ form_widget(form.answer) }}
+            <div class="col-md-6" style="margin:15px;">
+                {{ form_widget(form.answers) }}
             </div>
         </div>
     </div>
@@ -78,16 +78,16 @@
         </div>
         <div class="col-md-5">
             <button class="answers-collection-add btn btn-default" title="Add element">
-                <span class="glyphicon glyphicon-plus-sign"></span>
+                <span class="glyphicon glyphicon-plus-sign">Add element</span>
             </button>
             <button class="answers-collection-remove btn btn-default" title="Delete element">
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="glyphicon glyphicon-trash">Delete element</span>
             </button>
             <button class="answers-collection-up btn btn-default" title="Move up">
-                <span class="glyphicon glyphicon-arrow-up"></span>
+                <span class="glyphicon glyphicon-arrow-up">Move up</span>
             </button>
             <button class="answers-collection-down btn btn-default" title="Move down">
-                <span class="glyphicon glyphicon-arrow-down"></span>
+                <span class="glyphicon glyphicon-arrow-down">Move down</span>
             </button>
         </div>
     </div>
