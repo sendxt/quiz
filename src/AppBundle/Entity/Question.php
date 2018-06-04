@@ -3,15 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Questions
- *
+ * @ORM\Entity()
  * @ORM\Table(name="questions")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\QuestionsRepository")
  */
-class Questions
+class Question
 {
     /**
      * @var int
@@ -36,7 +36,7 @@ class Questions
     private $quiz;
 
     /**
-     * @ORM\OneToMany(targetEntity="Answers", mappedBy="question", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Answer", mappedBy="question", cascade={"all"})
      */
     private $answers;
 
@@ -53,15 +53,15 @@ class Questions
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return mixed
+     * @return Quiz
      */
-    public function getQuiz()
+    public function getQuiz(): Quiz
     {
         return $this->quiz;
     }
@@ -69,9 +69,9 @@ class Questions
     /**
      * @param mixed $quiz
      *
-     * @return Questions
+     * @return Question
      */
-    public function setQuiz($quiz)
+    public function setQuiz($quiz): Question
     {
         $this->quiz = $quiz;
 
@@ -83,9 +83,9 @@ class Questions
      *
      * @param string $title
      *
-     * @return Questions
+     * @return Question
      */
-    public function setTitle($title)
+    public function setTitle($title): Question
     {
         $this->title = $title;
 
@@ -97,7 +97,7 @@ class Questions
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -105,17 +105,17 @@ class Questions
     /**
      * @return mixed
      */
-    public function getAnswers()
+    public function getAnswers(): ?Collection
     {
         return $this->answers;
     }
 
     /**
-     * @param Answers $answer
+     * @param Answer $answer
      *
-     * @return Questions
+     * @return Question
      */
-    public function addAnswer(Answers $answer): Questions
+    public function addAnswer(Answer $answer): Question
     {
         if (false === $this->answers->contains($answer)) {
             $this->answers->add($answer);
@@ -126,11 +126,11 @@ class Questions
     }
 
     /**
-     * @param Answers $answer
+     * @param Answer $answer
      *
-     * @return Questions
+     * @return Question
      */
-    public function removeAnswer(Answers $answer): Questions
+    public function removeAnswer(Answer $answer): Question
     {
         $this->answers->removeElement($answer);
 

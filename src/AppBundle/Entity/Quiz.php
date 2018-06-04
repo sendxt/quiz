@@ -3,13 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Quiz
- *
+ * @ORM\Entity()
  * @ORM\Table(name="quiz")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\QuizRepository")
  */
 class Quiz
 {
@@ -30,7 +30,7 @@ class Quiz
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="Questions", mappedBy="quiz", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="quiz", cascade={"all"})
      */
     private $questions;
 
@@ -46,7 +46,7 @@ class Quiz
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -58,7 +58,7 @@ class Quiz
      *
      * @return Quiz
      */
-    public function setTitle($title)
+    public function setTitle($title): Quiz
     {
         $this->title = $title;
 
@@ -70,7 +70,7 @@ class Quiz
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -78,11 +78,11 @@ class Quiz
     /**
      * Add question.
      *
-     * @param \AppBundle\Entity\Questions $question
+     * @param \AppBundle\Entity\Question $question
      *
      * @return Quiz
      */
-    public function addQuestion(Questions $question): Quiz
+    public function addQuestion(Question $question): Quiz
     {
         if (false === $this->questions->contains($question)) {
             $this->questions->add($question);
@@ -93,11 +93,11 @@ class Quiz
     }
 
     /**
-     * @param Questions $question
+     * @param Question $question
      *
      * @return $this
      */
-    public function removeQuestion(Questions $question)
+    public function removeQuestion(Question $question): Quiz
     {
         $this->questions->removeElement($question);
 
@@ -105,11 +105,9 @@ class Quiz
     }
 
     /**
-     * Get questions.
-     *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection|null
      */
-    public function getQuestions()
+    public function getQuestions(): Collection
     {
         return $this->questions;
     }

@@ -6,11 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Answer
- *
- * @ORM\Table(name="answer")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AnswersRepository")
+ * @ORM\Entity()
+ * @ORM\Table(name="answers")
  */
-class Answers
+class Answer
 {
     /**
      * @var int
@@ -38,7 +37,7 @@ class Answers
 
     /**
      * Many Features have One Product.
-     * @ORM\ManyToOne(targetEntity="Questions", inversedBy="answers")
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="answers")
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id")
      */
     private $question;
@@ -49,7 +48,7 @@ class Answers
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -59,9 +58,9 @@ class Answers
      *
      * @param string $title
      *
-     * @return Answers
+     * @return Answer
      */
-    public function setTitle($title)
+    public function setTitle($title): Answer
     {
         $this->title = $title;
 
@@ -73,7 +72,7 @@ class Answers
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -83,9 +82,9 @@ class Answers
      *
      * @param bool $correct
      *
-     * @return Answers
+     * @return Answer
      */
-    public function setCorrect($correct)
+    public function setCorrect($correct): Answer
     {
         $this->correct = $correct;
 
@@ -97,7 +96,7 @@ class Answers
      *
      * @return bool
      */
-    public function getCorrect()
+    public function getCorrect(): ?bool
     {
         return $this->correct;
     }
@@ -105,11 +104,11 @@ class Answers
     /**
      * Set question.
      *
-     * @param \AppBundle\Entity\Questions|null $question
+     * @param \AppBundle\Entity\Question|null $question
      *
-     * @return Answers
+     * @return Answer
      */
-    public function setQuestion(\AppBundle\Entity\Questions $question = null)
+    public function setQuestion(\AppBundle\Entity\Question $question = null): Answer
     {
         $this->question = $question;
 
@@ -119,9 +118,9 @@ class Answers
     /**
      * Get question.
      *
-     * @return \AppBundle\Entity\Questions|null
+     * @return \AppBundle\Entity\Question|null
      */
-    public function getQuestion()
+    public function getQuestion(): ?Answer
     {
         return $this->question;
     }

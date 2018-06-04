@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Quiz;
 use AppBundle\Form\Type\QuizType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,15 +27,18 @@ class QuizController extends Controller
 
         $quizzes = $em->getRepository(Quiz::class)->findAll();
 
-        return $this->render('quiz/index.html.twig', [
-            'quizzes' => $quizzes,
-        ]);
+        return $this->render(
+            'quiz/index.html.twig',
+            [
+                'quizzes' => $quizzes,
+            ]
+        );
     }
 
     /**
-     * Create quiz
-     *
+     * @param Request $request
      * @Route("/create", name="quiz_create")
+     * @return Response
      */
     public function createAction(Request $request): Response
     {
@@ -49,14 +51,20 @@ class QuizController extends Controller
             $entityManager->persist($quiz);
             $entityManager->flush();
 
-            return $this->redirectToRoute('quiz_edit', [
-                'quiz' => $quiz->getId(),
-            ]);
+            return $this->redirectToRoute(
+                'quiz_edit',
+                [
+                    'quiz' => $quiz->getId(),
+                ]
+            );
         }
 
-        return $this->render('quiz/form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'quiz/form.html.twig',
+                [
+                    'form' => $form->createView(),
+                ]
+            );
     }
 
     /**
@@ -79,21 +87,30 @@ class QuizController extends Controller
             return $this->redirectToRoute('quiz_index');
         }
 
-        return $this->render('quiz/form.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'quiz/form.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
+     * @param Request $request
+     * @param Quiz $quiz
      * @Route(name="quiz_delete", path="/delete/{quiz}")
+     * @return Response
      */
-    public function deleteAction(Quiz $quiz): Response
+    public function deleteAction(Request $request, Quiz $quiz): Response
     {
-        $em = $this->getDoctrine()->getManager();
+        if ($this->isCsrfTokenValid('delete'.$quiz->getId(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
 
-        $em->remove($quiz);
-        $em->flush();
+            $em->remove($quiz);
+            $em->flush();
+        }
 
         return $this->redirectToRoute('quiz_index');
     }
 }
+
