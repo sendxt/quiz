@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class QuizType extends AbstractType
 {
@@ -21,19 +22,22 @@ class QuizType extends AbstractType
             ->add('title', TextType::class,
                 [
                     'label' => 'Quiz name',
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
                 ]
             )
             ->add('questions', CollectionType::class, [
                 'entry_type' => QuestionType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'prototype'    => true,
+                'prototype' => true,
                 'by_reference' => false,
                 'prototype_name' => '__question_name__',
                 'label' => 'Question',
                 'attr' => [
-                    'class' => 'questions-collection'
-                ]
+                    'class' => 'questions-collection',
+                ],
             ]);
     }
 

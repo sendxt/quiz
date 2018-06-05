@@ -11,17 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Quiz controller.
- *
- * @Route("quiz")
  */
 class QuizController extends Controller
 {
     /**
-     * Lists all quiz entities.
-     *
+     * @return Response
      * @Route("/", name="quiz_index")
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -113,4 +110,3 @@ class QuizController extends Controller
         return $this->redirectToRoute('quiz_index');
     }
 }
-
