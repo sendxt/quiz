@@ -16,7 +16,7 @@ class QuizController extends Controller
 {
     /**
      * @return Response
-     * @Route("/", name="quiz_index")
+     * @Route("/list", name="quiz_index")
      */
     public function indexAction(): Response
     {
@@ -44,6 +44,7 @@ class QuizController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            dump($request);die;
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($quiz);
             $entityManager->flush();

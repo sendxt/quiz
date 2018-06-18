@@ -27,7 +27,14 @@ class AnswerType extends AbstractType
                     ]
                 ]
             )
-            ->add('correct', CheckboxType::class);
+            ->add(
+                'correct',
+                CheckboxType::class,
+                [
+                    'attr' => [
+                        'required' => false,
+                    ]
+                ]);
     }
 
     /**
