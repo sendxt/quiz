@@ -44,7 +44,6 @@ class QuizController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($request);die;
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($quiz);
             $entityManager->flush();
